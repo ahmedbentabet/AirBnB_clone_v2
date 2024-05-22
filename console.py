@@ -134,8 +134,6 @@ class HBNBCommand(cmd.Cmd):
                 continue # Skip if parameter format is incorrect
 
             key, value = key_value
-            print(key)
-            print(value)
 
             # Handle value types
             if value.startswith('"') and value.endswith('"'):
