@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             # Set the attribute on the instance
             setattr(new_instance, key, value)
 
-        # storage.new(new_instance) # Add the instance to storage
+        storage.new(new_instance) # Add the instance to storage
         storage.save()            # Save storage
         print(new_instance.id)
 
