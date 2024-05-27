@@ -15,11 +15,14 @@ class BaseModel:
             self.updated_at = datetime.now()
             storage.new(self)
         else:
+            # converts the created_at and updated_at strings into datetime objects
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
+                                                    '%Y-%m-%dT%H:%M:%S.%f')
             kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
+                                                    '%Y-%m-%dT%H:%M:%S.%f')
             del kwargs['__class__']
+            # Sets the instance's __dict__ with all the keys and values from kwargs.
+            # before this line __dict__ was empty
             self.__dict__.update(kwargs)
 
     def __str__(self):
@@ -38,7 +41,10 @@ class BaseModel:
         dictionary = {}
         dictionary.update(self.__dict__)
         dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
+                        (str(type(self)).split('.')[-1]).split('\'')[0]})
+
+        # converts the created_at and updated_at attributes to
+        # ISO format strings and adds them to the dictionary.
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         return dictionary
