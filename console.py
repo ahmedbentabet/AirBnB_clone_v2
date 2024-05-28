@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
             # Handle value types
             if value.startswith('"') and value.endswith('"'):
                 # It's a string, replace underscores with spaces and handle escaped quotes
-                value = value[1:-1].replace('-', ' ').replace('"', '\\"')
+                value = value[1:-1].replace('_', ' ').replace('"', '\\"')
             elif '.' in value:
                 try: 
                     # Try converting to float
@@ -155,7 +155,6 @@ class HBNBCommand(cmd.Cmd):
             # Set the attribute on the instance
             setattr(new_instance, key, value)
 
-        # storage.new(new_instance) # Add the instance to storage
         storage.save()            # Save storage
         print(new_instance.id)
 
