@@ -9,13 +9,28 @@ class FileStorage:
     # dict to store all objects : key: value = <class name>.obj_id: <obj_name>
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        return FileStorage.__objects
+        if cls == None:
+            return FileStorage.__objects
+        else:
+            dict_of_cls = {}
+            for key, obj in FileStorage.__objects.items():
+                if isinstance(obj, cls):
+                    dict_of_cls[key] = obj
+            return dict_of_cls
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+
+    def delete(self, obj=None):
+        """Deletes obj from __objects if it’s inside"""
+        if obj is None:
+            return
+        key = obj.to_dict()['__class__'] + '.' + obj.id
+        if key in FileStorage.__objects:
+            del FileStorage.__objects[key]
 
     def save(self):
         """Saves storage dictionary to file"""
