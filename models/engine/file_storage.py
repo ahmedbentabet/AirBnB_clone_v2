@@ -14,11 +14,10 @@ class FileStorage:
         if cls == None:
             return FileStorage.__objects
         else:
-            dict_of_cls = {}
-            for key, obj in FileStorage.__objects.items():
-                if isinstance(obj, cls):
-                    dict_of_cls[key] = obj
-            return dict_of_cls
+            return {key: obj
+                    for key, obj in FileStorage.__objects.items()
+                    if isinstance(obj, cls)
+                    }
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -31,6 +30,8 @@ class FileStorage:
         key = obj.to_dict()['__class__'] + '.' + obj.id
         if key in FileStorage.__objects:
             del FileStorage.__objects[key]
+            from models import storage
+            storage.save()
 
     def save(self):
         """Saves storage dictionary to file"""

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Console Module """
 import cmd
 import sys
@@ -19,15 +19,15 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+                'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                'State': State, 'City': City, 'Amenity': Amenity,
+                'Review': Review
+            }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
+                'number_rooms': int, 'number_bathrooms': int,
+                'max_guest': int, 'price_by_night': int,
+                'latitude': float, 'longitude': float
             }
 
     def preloop(self):
@@ -125,9 +125,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        # Create a new instance of the class
-        new_instance = HBNBCommand.classes[class_name]()
-
+        dict_of_attr = {}
         for param in list_of_args[1:]:
             key_value = param.split("=")
             if len(key_value) != 2:
@@ -152,10 +150,13 @@ class HBNBCommand(cmd.Cmd):
                 except ValueError:
                     continue # Skip if converting fails
 
-            # Set the attribute on the instance
-            setattr(new_instance, key, value)
+            dict_of_attr[key] = value
 
-        storage.save()            # Save storage
+        # Create a new instance of the class
+        new_instance = HBNBCommand.classes[class_name](**dict_of_attr)
+        new_instance.save()
+        # storage.new(new_instance)
+        # storage.save()
         print(new_instance.id)
 
     def help_create(self):
@@ -238,11 +239,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
                 print_list.append(str(v))
 
         print(print_list)
