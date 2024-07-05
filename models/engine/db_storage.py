@@ -35,6 +35,7 @@ class DBStorage():
         if ENV == 'test':
             # Drop all tables for testing
             Base.metadata.drop_all(self.__engine)
+            print("All tables dropped because HBNB_ENV is set to 'test'.")
 
     def all(self, cls=None):
         """Queries the database for all objects of a given class"""

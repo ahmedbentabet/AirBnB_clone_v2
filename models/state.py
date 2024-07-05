@@ -20,7 +20,7 @@ class State(BaseModel, Base):
         from models import storage
 
         # Get all City objects from storage
-        all_cities = models.storage.all(City)
+        all_cities = storage.all(City)
         city_list = []
         for city in all_cities.values():
             if city.state_id == self.id:

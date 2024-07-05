@@ -5,5 +5,19 @@
         "updated_at": "2024-05-31T19:54:00.095215",
         "name": "California",
         "__class__": "State"
+    },
+    "State.7f0dc83b-6e93-44dc-8d85-b9c5b04b7238": {
+        "id": "7f0dc83b-6e93-44dc-8d85-b9c5b04b7238",
+        "created_at": "2024-07-05T16:41:05.466460",
+        "updated_at": "2024-07-05T16:41:05.466473",
+        "name": "Laayoune",
+        "__class__": "State"
+    },
+    "State.dd97c469-5f97-4b4a-9819-84823ac2bf69": {
+        "id": "dd97c469-5f97-4b4a-9819-84823ac2bf69",
+        "created_at": "2024-07-05T17:04:40.886626",
+        "updated_at": "2024-07-05T17:04:40.886638",
+        "name": "Agadir",
+        "__class__": "State"
     }
 }
