@@ -36,5 +36,5 @@ sudo sed -i '
 # Restart Nginx to apply the changes
 sudo service nginx restart
 
-# Output status message
-echo "Setup completed successfully."
+# Exit successfully
+exit 0
