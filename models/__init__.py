@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """This module instantiates an object of classes FileStorage and DBStorage"""
-from os import getenv 
+from os import getenv
 
 # Get the storage type from the environment variable
 storage_type = getenv('HBNB_TYPE_STORAGE')
