@@ -29,7 +29,7 @@ def do_pack():
     print(f"Packing web_static to {archive_name}")
 
     # Create the .tgz archive
-    result = local(f"tar -cvzf {archive_name} web_static")
+    result = local(f"tar -cvzf {archive_name} web_static", capture=True)
 
     # Check if the archive was created successfully
     if result.succeeded:
