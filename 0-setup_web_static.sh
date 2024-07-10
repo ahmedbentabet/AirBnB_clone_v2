@@ -26,7 +26,7 @@ sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 
 # Update the Nginx configuration to serve the content
-cat << 'EOF' > /workspaces/alx/xLearn/index.html
+cat << 'EOF' > /etc/nginx/sites-available/default
 server {
 	listen 80;
 	server_name 7md.tech;
