@@ -26,15 +26,40 @@ sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 
 # Update the Nginx configuration to serve the content
-sudo sed -i '
-  /index index.html;/ a \
-    \n  location /hbnb_static/ { \
-    alias /data/web_static/current/; \
-    }
-' /etc/nginx/sites-available/default
+cat << 'EOF' > /workspaces/alx/xLearn/index.html
+server {
+	listen 80;
+	server_name 7md.tech;
+	root /var/www/html;
+	index index.html;
+
+	location /hbnb_static/ { 
+		alias /data/web_static/current/;
+	}
+
+	location /about {
+		root /var/www/html;
+	}
+
+	location /blog {
+		alias /var/www/html/blog;
+	}
+
+	add_header X-Served-By $hostname;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+	location /redirect_me {
+		return 301 google.com;
+	}
+
+	error_page 404 /errors/404.html;
+	location = /errors/404.html {
+		internal;
+	}
+}
+EOF
 
 # Restart Nginx to apply the changes
 sudo service nginx restart
-
-# Exit successfully
-exit 0
