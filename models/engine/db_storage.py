@@ -86,3 +86,7 @@ class DBStorage():
 
         # Create a thread-safe session using scoped_session
         self.__session = scoped_session(session_factory)
+
+    def close(self):
+        """Call remove() method on the private session attribute"""
+        self.__session.remove()
