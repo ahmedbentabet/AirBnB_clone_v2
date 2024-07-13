@@ -3,7 +3,9 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
-from models.place import Place  # Import Place to establish relationship
+import os
+
+STORAGE = os.getenv("HBNB_TYPE_STORAGE")
 
 
 class User(BaseModel, Base):
@@ -11,13 +13,19 @@ class User(BaseModel, Base):
 
     __tablename__ = 'users'  # Table name in the database
 
-    email = Column(String(128), nullable=False)  # not nullable
-    password = Column(String(128), nullable=False)  # not nullable
-    first_name = Column(String(128))  # nullable
-    last_name = Column(String(128))  # nullable
+    if STORAGE == "db":
+        email = Column(String(128), nullable=False)  # not nullable
+        password = Column(String(128), nullable=False)  # not nullable
+        first_name = Column(String(128))  # nullable
+        last_name = Column(String(128))  # nullable
 
-    # Relationship with Place objects
-    places = relationship('Place', cascade='all, delete-orphan', backref='user')
+        # Relationship with Place objects
+        places = relationship('Place', cascade='all, delete-orphan', backref='user')
 
-    # Relationship with Review
-    reviews = relationship('Review', backref='user', cascade='all, delete-orphan')
+        # Relationship with Review
+        reviews = relationship('Review', backref='user', cascade='all, delete-orphan')
+    else:
+        email = ""
+        password = ""
+        first_name = ""
+        last_name = ""
