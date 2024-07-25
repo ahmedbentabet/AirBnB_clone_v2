@@ -75,8 +75,8 @@ def number_odd_or_even(n):
         n = int(n)
         odd_or_even = "odd" if n % 2 else "even"
         return render_template('6-number_odd_or_even.html',
-                               n=n,
-                               odd_or_even=odd_or_even)
+                                n=n,
+                                odd_or_even=odd_or_even)
     except ValueError:
         abort(404)
 
