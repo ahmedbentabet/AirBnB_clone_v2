@@ -15,16 +15,21 @@ def states_list():
     Display a list of States and their Cities in HTML.
     """
     states = storage.all(State).values()
-    sorted_states = sorted(states, key=lambda x: x.name)
-    list_of_cities = []
-    for state in sorted_states:
-        list_of_cities.extend(state.cities)
-    sorted_cities = sorted(list_of_cities, key=lambda x: x.name)
-    return render_template(
-                            '8-cities_by_states.html',
-                            cities=sorted_cities,
-                            states=sorted_states
-    )
+    organized_data = []
+    
+    # Loop through states, sorted by name
+    for state in sorted(states, key=lambda x: x.name):
+        # Create a dictionary for each state
+        state_data = {
+            'name': state.name,
+            'id': state.id,
+            # List of cities, sorted by name
+            'cities': sorted(state.cities, key=lambda x: x.name)
+        }
+        # Add state data to the organized_data list
+        organized_data.append(state_data)
+    
+    return render_template('8-cities_by_states.html', states=organized_data)
 
 
 @app.teardown_appcontext
