@@ -16,7 +16,7 @@ def states_list():
     """
     states = storage.all(State).values()
     organized_data = []
-    
+
     # Loop through states, sorted by name
     for state in sorted(states, key=lambda x: x.name):
         # Create a dictionary for each state
@@ -28,7 +28,7 @@ def states_list():
         }
         # Add state data to the organized_data list
         organized_data.append(state_data)
-    
+
     return render_template('8-cities_by_states.html', states=organized_data)
 
 
